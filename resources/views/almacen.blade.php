@@ -6,12 +6,16 @@
     <title>Inicio</title>
 </head>
 <body>
-
+    
 </body>
 </html>
 
 <!-- Menu de navBar-->
+<li>
     <li><a href={{route('home')}}>Home</a></li>
-<h1>
-    Welcome
-</h1>
+    <li><a href={{ route('almacen') }}>Almacén</a></li>
+    <li><a href={{ route('clientes')}}>Clientes</a></li>
+    <li><a href={{route('ventas')}}>Ventas</a></li>
+    <li><a href={{route('configuracion')}}>Configuración</a></li>
+</li>
+<h1>Almacen</h1>

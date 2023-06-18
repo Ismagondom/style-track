@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Routa get a home, podria ser solo view, ya que en principio no recibe nada
+Route::get('/home', function () {
+    return view('home');
+})->name('home');       //ponemos nombre para poder referirnos a esta ruta de forma mas segura, y así tener mejor feedbackde posible error en la ruta. con route('home');
+
+Route::get('/almacen', function () {
+    return view('almacen');
+})->name('almacen');
+Route::view('/', 'welcome')->name('welcome');
+
+Route::view('/clientes', 'clientes')->name('clientes');
+Route::view('/ventas', 'ventas')->name('ventas');
+Route::view('/configuracion', 'configuracion')->name('configuracion');
