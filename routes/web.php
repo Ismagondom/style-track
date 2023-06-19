@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,6 @@ Route::get('/almacen', function () {
 })->name('almacen');
 Route::view('/', 'welcome')->name('welcome');
 
-Route::view('/clientes', 'clientes')->name('clientes');
+Route::get('/clientes', [ClientesController::class , 'index'])->name('clientes');  //esto es lo mismo que Route::get('/cliente', [ClientesController::class , 'index'])
 Route::view('/ventas', 'ventas')->name('ventas');
 Route::view('/configuracion', 'configuracion')->name('configuracion');

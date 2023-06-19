@@ -1,6 +1,7 @@
-@extends('layouts.app')
+<x-layouts.app
+    title="Almacén"
+    >
 
-@section('title', 'Almacén')
-@section('content')
-    <h1>Almacen</h1>
-@endsection
+    <h1>Página de Almacén</h1>
+
+</x-layoutsapp>
