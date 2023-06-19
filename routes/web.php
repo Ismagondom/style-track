@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\ColorsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,11 @@ Route::get('/home', function () {
 Route::get('/almacen', function () {
     return view('almacen');
 })->name('almacen');
+
 Route::view('/', 'welcome')->name('welcome');
 
-Route::get('/clientes', [ClientesController::class , 'index'])->name('clientes');  //esto es lo mismo que Route::get('/cliente', [ClientesController::class , 'index'])
+Route::get('/clientes', [ClientesController::class , 'index'])->name('clientes');  //esto es lo mismo que Route::get('/cliente','ClientesController@index') Pero esto me da fallo no se porque.
 Route::view('/ventas', 'ventas')->name('ventas');
 Route::view('/configuracion', 'configuracion')->name('configuracion');
+
+Route::get('/colors', [ColorsController::class, 'index'])->name('colors');

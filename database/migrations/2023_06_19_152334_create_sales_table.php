@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id');
             $table->boolean('paid');
-            $table->integer('total_amount');
+            $table->float('total_amount');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();

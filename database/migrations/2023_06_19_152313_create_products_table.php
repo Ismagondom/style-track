@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 80);
             $table->string('description', 250);
-            $table->string('phone', 12);
-            $table->integer('cost');
-            $table->integer('price');
+            $table->float('cost');
+            $table->float('price');
             $table->string('photo_path',1000);
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')
