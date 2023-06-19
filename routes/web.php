@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AlmacenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ColorsController;
+use App\Http\Controllers\VentasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +22,19 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');       //ponemos nombre para poder referirnos a esta ruta de forma mas segura, y así tener mejor feedbackde posible error en la ruta. con route('home');
 
-Route::get('/almacen', function () {
-    return view('almacen');
-})->name('almacen');
+
 
 Route::view('/', 'welcome')->name('welcome');
 
+//--ROUTES PRINCIPALES INDEXs--
 Route::get('/clientes', [ClientesController::class , 'index'])->name('clientes');  //esto es lo mismo que Route::get('/cliente','ClientesController@index') Pero esto me da fallo no se porque.
-Route::view('/ventas', 'ventas')->name('ventas');
-Route::view('/configuracion', 'configuracion')->name('configuracion');
+Route::get('/ventas', [VentasController::class,'index'])->name('ventas');
 
+
+
+Route::view('/configuracion', 'configuracion')->name('configuracion');
 Route::get('/colors', [ColorsController::class, 'index'])->name('colors');
+
+Route::get('/almacen', [AlmacenController::class,'index'])->name('almacen');    //por convencion metodo index, para listar productos
+//Ruta para mostrar en detalle un producto, envía parámetro de routa el id del producto.
+Route::get('/producto/{id}', [AlmacenController::class,'show'])->name('producto');   //por convencion show, para mostrar un producto
