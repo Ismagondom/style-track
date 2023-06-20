@@ -1,3 +1,4 @@
+
 <x-layouts.app title="Home">
     <div class="h-screen flex justify-center items-center bg-gray-900">
     <div class="bg-opacity-75 rounded-lg p-8">
