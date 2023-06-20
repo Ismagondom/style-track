@@ -20,7 +20,7 @@ class ConfiguracionController extends Controller
     function indexColors()
     {
 
-        $colors = Color::get();
+        $colors = Color::get();//cojo todos los colores y los envio a la vista
         return view('configuracion.colors', ['colors' => $colors]);
     }
 
@@ -35,6 +35,7 @@ class ConfiguracionController extends Controller
     {
         $color = Color::findOrFail($id);
         if (Product::where('color_id', $id)->exists()) {
+            //envio un mensaje a la vista
             return redirect()->route('colores')->with('mensaje', 'Color NO elminado ya que existe un producto con este color.');
         } else {
             $color->delete();
@@ -70,7 +71,7 @@ class ConfiguracionController extends Controller
             return redirect()->route('proveedores')->with('mensaje', 'Proveedor NO eliminado ya que existe un producto con este proveedor.');
         } else {
             $provider->delete();
-            return redirect()->route('proveedores')->with('mensaje', 'Proveedor eliminado correctamente');
+            return to_route('proveedores')->with('mensaje', 'Proveedor eliminado correctamente');//to_route es lo mismo que redirect()->route('proveedores')->with('mensaje', 'Proveedor eliminado correctamente')
         }
     }
     function indexCategories()

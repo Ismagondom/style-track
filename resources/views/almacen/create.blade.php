@@ -7,24 +7,40 @@
         <!--Siempre que usemos un formulario en laravel debemos usar esta etiqueta para evitar ataques csrf-->
 
         <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" value="{{old('name')}}" required>
         <br>
+        @error('name')
+            <small style="color: red">{{$message}}</small>
+            <br>
+        @enderror
         <label for="description">Descripción:</label>
-        <textarea id="description" name="description" required></textarea>
+        <textarea id="description" name="description" required>{{old('description')}}</textarea>
         <br>
+        @error('name')
+        <small style="color: red">{{$message}}</small>
+        <br>
+    @enderror
         <label for="cost">Costo:</label>
-        <input type="number" step="0.01" id="cost" name="cost" required>
+        <input type="number" step="0.01" id="cost" name="cost" value="{{old('cost')}}" required>
         <br>
+        @error('name')
+        <small style="color: red">{{$message}}</small>
+        <br>
+    @enderror
         <label for="price">Precio:</label>
-        <input type="number" step="0.01" id="price" name="price" required>
+        <input type="number" step="0.01" id="price" name="price" value="{{old('price')}}"required>
         <br>
+        @error('name')
+        <small style="color: red">{{$message}}</small>
+        <br>
+    @enderror
         <!--TODOIT, subida de imagenes
     <label for="image">Imagen:</label>
     <input type="file" id="image" name="image" accept="image/*" required>
     <br>
     -->
         <label for="provider">Proveedor:</label>
-        <select id="provider" name="provider" required>
+        <select id="provider" name="provider" required value="{{old('provider')}}"required>
             @foreach ($providers as $provider)
                 <option value="{{ $provider->id }}">{{ $provider->name }}</option>
             @endforeach

@@ -39,6 +39,13 @@ class AlmacenController extends Controller
 
     function store(Request $request)
     {
+        //VALIACION DE CAMPOS
+        $request->validate([
+            'name'=>['required'],
+            'description'=>['required'],
+            'cost'=>['required'],
+            'price'=>['required'],
+        ]);
 
         if (!Product::where('name', $request->name)->exists()) {
             $p = new Product();
@@ -72,9 +79,8 @@ class AlmacenController extends Controller
                 // No se seleccionó ninguna opción
                 echo 'No se seleccionó ninguna talla';
             }
-            echo $p;
-            //Ahora creamos las diferentes tallas en 0.
         }
+        return to_route('almacen')->with('mensaje', 'Producto añadido correctamente.');
     }
 
 
