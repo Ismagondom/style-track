@@ -36,16 +36,67 @@ class AlmacenController extends Controller
         return view('almacen.create', compact('colors', 'providers', 'categories', 'sizes'));
     }
 
+    function edit(Product $id)
+    {
+        $colors = Color::get();
+        $providers = Provider::get();
+        $categories = Category::get();
+        $sizes = Size::get();
+        $product = $id;
+        $productSizes = ProductSize::where('product_id', $product->id)->get();
+        return view('almacen.edit', compact('colors', 'providers', 'categories', 'sizes', 'product', 'productSizes'));
+    }
+    function update(Request $request, $id)
+    {
+        // Validar los datos del formulario
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'cost' => 'required|numeric',
+            'price' => 'required|numeric',
+            'provider' => 'required|exists:providers,id',
+            'color' => 'required|exists:colors,id',
+            'category' => 'required|exists:categories,id',
+            'sizes.*' => 'nullable|integer|min:0',
+        ]);
+
+        // Obtener el producto a actualizar
+        $product = Product::findOrFail($id);
+        // Actualizar los campos del producto
+        $product->name = $validatedData['name'];
+        $product->description = $validatedData['description'];
+        $product->cost = $validatedData['cost'];
+        $product->price = $validatedData['price'];
+        $product->provider_id = $validatedData['provider'];
+        $product->color_id = $validatedData['color'];
+        $product->category_id = $validatedData['category'];
+
+        // Guardar los cambios en el producto
+        $product->save();
+
+        // Actualizar las cantidades de las tallas
+        $sizes = $validatedData['sizes'];
+
+        foreach ($sizes as $productSizeId => $quantity) {
+            $productSize = ProductSize::findOrFail($productSizeId);
+            $productSize->quantity = $quantity;
+            $productSize->save();
+        }
+
+        // Redireccionar o mostrar un mensaje de éxito
+        return redirect()->route('producto', ['id' => $product->id])->with('mensaje', 'El producto se ha actualizado correctamente.');
+    }
 
     function store(Request $request)
     {
         //VALIACION DE CAMPOS
         $request->validate([
-            'name'=>['required'],
-            'description'=>['required'],
-            'cost'=>['required'],
-            'price'=>['required'],
+            'name' => ['required'],
+            'description' => ['required'],
+            'cost' => ['required'],
+            'price' => ['required'],
         ]);
+
 
         if (!Product::where('name', $request->name)->exists()) {
             $p = new Product();

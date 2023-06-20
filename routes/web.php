@@ -61,4 +61,7 @@ Route::get('/producto/crear', [AlmacenController::class,'create'])->name('nuevop
 
 //Ruta para mostrar en detalle un producto, envía parámetro de routa el id del producto.
 Route::get('/producto/{id}', [AlmacenController::class,'show'])->name('producto');   //por convencion show, para mostrar un producto
+Route::patch('/producto/{id}', [AlmacenController::class,'update'])->name('updateproducto');
+Route::get('/producto/{id}/edit', [AlmacenController::class,'edit'])->name('productoEditar');   //por convencion show, para mostrar un producto
+
 Route::post('/producto',[AlmacenController::class,'store'])->name('guardarproducto');   //por convencion store.
