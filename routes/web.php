@@ -36,5 +36,9 @@ Route::view('/configuracion', 'configuracion')->name('configuracion');
 Route::get('/colors', [ColorsController::class, 'index'])->name('colors');
 
 Route::get('/almacen', [AlmacenController::class,'index'])->name('almacen');    //por convencion metodo index, para listar productos
+
+Route::get('/producto/crear', [AlmacenController::class,'create'])->name('nuevoproducto');  //ruta para añadir un nuevo producto
+
 //Ruta para mostrar en detalle un producto, envía parámetro de routa el id del producto.
 Route::get('/producto/{id}', [AlmacenController::class,'show'])->name('producto');   //por convencion show, para mostrar un producto
+Route::post('/producto',[AlmacenController::class,'store'])->name('guardarproducto');   //por convencion store.
