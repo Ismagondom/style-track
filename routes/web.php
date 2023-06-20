@@ -3,7 +3,7 @@
 use App\Http\Controllers\AlmacenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
-use App\Http\Controllers\ColorsController;
+use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\VentasController;
 
 /*
@@ -31,10 +31,30 @@ Route::get('/clientes', [ClientesController::class , 'index'])->name('clientes')
 Route::get('/ventas', [VentasController::class,'index'])->name('ventas');
 
 
+/**RUTAS DE CONFIGURACION */
+Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('configuracion');
 
-Route::view('/configuracion', 'configuracion')->name('configuracion');
-Route::get('/colors', [ColorsController::class, 'index'])->name('colors');
+Route::delete('/proveedores/{id}', [ConfiguracionController::class, 'deleteProvider'])->name('deleteProvider');
+Route::get('/proveedores', [ConfiguracionController::class, 'indexProviders'])->name('proveedores');
+Route::post('/proveedores', [ConfiguracionController::class, 'storeProvider'])->name('storeProvider');
 
+Route::delete('/categorias/{id}', [ConfiguracionController::class, 'deleteCategory'])->name('deleteCategory');
+Route::get('/categorias', [ConfiguracionController::class, 'indexCategories'])->name('categorias');
+Route::post('/categorias', [ConfiguracionController::class, 'storeCategory'])->name('storeCategory');
+
+Route::delete('/colores/{id}', [ConfiguracionController::class, 'deleteColor'])->name('deleteColor');
+Route::get('/colores', [ConfiguracionController::class, 'indexColors'])->name('colores');
+Route::post('/colores', [ConfiguracionController::class, 'storeColor'])->name('storeColor');
+
+Route::delete('/tallas/{id}', [ConfiguracionController::class, 'deleteSize'])->name('deleteSize');
+Route::get('/tallas', [ConfiguracionController::class, 'indexSizes'])->name('tallas');
+Route::post('/tallas', [ConfiguracionController::class, 'storeSize'])->name('storeSize');
+
+
+
+
+
+/** RUTAS DE ALMACEN */
 Route::get('/almacen', [AlmacenController::class,'index'])->name('almacen');    //por convencion metodo index, para listar productos
 
 Route::get('/producto/crear', [AlmacenController::class,'create'])->name('nuevoproducto');  //ruta para añadir un nuevo producto

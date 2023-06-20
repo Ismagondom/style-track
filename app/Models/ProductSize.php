@@ -9,7 +9,7 @@ class ProductSize extends Model
 {
     use HasFactory;
     protected $table = 'product_sizes';
-    protected $fillable = ['product_id', 'size_id'];
+    protected $fillable = ['product_id', 'size_id'];    //es como un metodo constructor, me permite crear de una en la funcion de store.
 
 
     public function product()
