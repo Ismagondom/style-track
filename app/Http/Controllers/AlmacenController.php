@@ -49,33 +49,32 @@ class AlmacenController extends Controller
     function update(Request $request, $id)
     {
         // Validar los datos del formulario
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'cost' => 'required|numeric',
-            'price' => 'required|numeric',
-            'provider' => 'required|exists:providers,id',
-            'color' => 'required|exists:colors,id',
-            'category' => 'required|exists:categories,id',
-            'sizes.*' => 'nullable|integer|min:0',
+        $request->validate([
+            'name' => ['required'],
+            'description' => ['required'],
+            'cost' => ['required'],
+            'price' => ['required'],
         ]);
 
         // Obtener el producto a actualizar
         $product = Product::findOrFail($id);
         // Actualizar los campos del producto
-        $product->name = $validatedData['name'];
-        $product->description = $validatedData['description'];
-        $product->cost = $validatedData['cost'];
-        $product->price = $validatedData['price'];
-        $product->provider_id = $validatedData['provider'];
-        $product->color_id = $validatedData['color'];
-        $product->category_id = $validatedData['category'];
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->cost = $request->cost;
+        $product->price = $request->price;
+        $product->provider_id = $request->provider;
+        $product->color_id = $request->color;
+        $product->category_id = $request->category;
+        if (!empty($sizes)) {
+            $this->addProductSize($product->id, $sizes);
+        }
 
         // Guardar los cambios en el producto
         $product->save();
 
         // Actualizar las cantidades de las tallas
-        $sizes = $validatedData['sizes'];
+        $sizes = $request->sizes;
 
         foreach ($sizes as $productSizeId => $quantity) {
             $productSize = ProductSize::findOrFail($productSizeId);
